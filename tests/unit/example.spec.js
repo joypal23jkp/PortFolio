@@ -1,13 +1,17 @@
-import { expect } from "chai";
 import { shallowMount } from "@vue/test-utils";
-import HelloWorld from "@/components/HelloWorld.vue";
+const MessageComponent = {
+  template: "<p>{{ msg }}</p>",
+  props: ["msg"],
+};
 
-describe("HelloWorld.vue", () => {
-  it("renders props.msg when passed", () => {
-    const msg = "new message";
-    const wrapper = shallowMount(HelloWorld, {
-      props: { msg },
-    });
-    expect(wrapper.text()).to.include(msg);
+describe("displays message", () => {
+  // mount() returns a wrapped Vue component we can interact with
+  const wrapper = shallowMount(MessageComponent, {
+    propsData: {
+      msg: "Hello world",
+    },
   });
+
+  // Assert the rendered text of the component
+  expect(wrapper.text()).toContain("Hello world");
 });
